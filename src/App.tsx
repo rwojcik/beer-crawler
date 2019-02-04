@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import 'typeface-roboto';
+import Button from '@material-ui/core/Button';
 import logo from './logo.svg';
 import './App.css';
 
@@ -11,14 +13,14 @@ class App extends Component {
           <p>
             Edit <code>src/App.tsx</code> and save to reload.
           </p>
-          <a
+          <Button
             className="App-link"
             href="https://reactjs.org"
             target="_blank"
             rel="noopener noreferrer"
           >
             Learn React
-          </a>
+          </Button>
         </header>
       </div>
     );
