@@ -4,6 +4,7 @@
     "html.format.endWithNewline": true,
     "cSpell.words": [
         "devtools",
+        "middlewares",
         "onstatechange",
         "onupdatefound",
         "precached",
