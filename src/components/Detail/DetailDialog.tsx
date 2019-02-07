@@ -128,6 +128,7 @@ export class DetailDialog extends React.Component<DetailDialogProps> {
               {this.renderFoodPairing()}
             </Grid>
             <Grid item xs={12}>
+              <Recommended item={this.props.item}/>
             </Grid>
           </Grid>
         </DialogContent>

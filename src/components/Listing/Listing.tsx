@@ -40,7 +40,6 @@ interface IPropsFromDispatch {
 type ListingContainerProps = IPropsFromState & IPropsFromDispatch & WithStyles<typeof styles>;
 
 export class ListingComponent extends React.Component<ListingContainerProps> {
-
   private renderError = () => {
     const onRetry = () => this.props.fetchStart(this.props.page);
 
