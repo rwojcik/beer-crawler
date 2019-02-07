@@ -1,4 +1,5 @@
-import { CircularProgress, Snackbar } from "@material-ui/core";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Snackbar from "@material-ui/core/Snackbar";
 import React from "react";
 
 export const LoadingSnackbar = () => {
