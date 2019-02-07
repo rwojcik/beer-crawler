@@ -1,5 +1,3 @@
-import { ConnectedRouter } from "connected-react-router";
-import { createHashHistory } from "history";
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
@@ -8,14 +6,11 @@ import { configureStore } from "./configureStore";
 import "./index.css";
 import * as serviceWorker from "./serviceWorker";
 
-const history = createHashHistory();
-const store = configureStore(history);
+const store = configureStore();
 
 ReactDOM.render(
   <Provider store={store}>
-    <ConnectedRouter history={history}>
       <App />
-    </ConnectedRouter>
   </Provider>,
   document.getElementById("root"),
 );

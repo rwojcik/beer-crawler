@@ -5,9 +5,6 @@ import { beersSaga } from "./beer/beerSagas";
 import { IBeersState } from "./beer/beerTypes";
 
 // The top-level state object.
-//
-// `connected-react-router` already injects the router state typings for us,
-// so we can ignore them here.
 export interface IApplicationState {
   beers: IBeersState;
 }
