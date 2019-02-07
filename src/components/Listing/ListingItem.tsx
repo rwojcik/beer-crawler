@@ -25,40 +25,30 @@ const styles = (theme: Theme) =>
     },
   });
 
-interface IPropsFromState {
-  data: IBeer[];
-  errors: string | undefined;
-  loading: boolean;
-}
-
 interface IPropsFromDispatch {
   fetchStart: typeof fetchStart;
 }
 
-type ListingContainerProps = IPropsFromState & IPropsFromDispatch;
-
-interface IOtherProps {
-  children?: (props: ListingContainerProps) => React.ReactNode;
+interface IProps {
+  item: IBeer;
 }
 
-export class Listing extends React.Component<
-  ListingContainerProps & IOtherProps & WithStyles<typeof styles>
-> {
-  public componentDidMount() {
-    this.props.fetchStart(0);
-  }
+type ListingContainerProps = IProps &
+  IPropsFromDispatch &
+  WithStyles<typeof styles>;
 
+export class ListingItem extends React.Component<ListingContainerProps> {
   public render() {
     const { classes } = this.props;
     return (
       <Grid item xs={12} sm={6} md={4} lg={3}>
-        <Paper className={classes.paper}>item</Paper>
+        <Paper className={classes.paper}>{this.props.item.name}</Paper>
       </Grid>
     );
   }
 }
 
-const StyledListing = withStyles(styles)(Listing);
+export const StyledListingItem = withStyles(styles)(ListingItem);
 
 const mapStateToProps = ({ beers }: IApplicationState) => ({
   data: beers.data,
@@ -70,7 +60,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   fetchStart: (page: number) => dispatch(fetchStart(page)),
 });
 
-export const ListingComponent = connect(
+export const ListingItemContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(StyledListing);
+)(StyledListingItem);

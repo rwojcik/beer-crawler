@@ -13,6 +13,7 @@ import { IApplicationState } from "../../store";
 import { fetchStart } from "../../store/beer/beerActions";
 import { IBeer } from "../../store/beer/beerTypes";
 import { ErrorSnackbar } from "./ErrorSnackbar";
+import { ListingItemContainer as ListingItem } from "./ListingItem";
 import { LoadingSnackbar } from "./LoadingSnackbar";
 
 const styles = (theme: Theme) =>
@@ -49,11 +50,7 @@ interface IPropsFromDispatch {
   fetchStart: typeof fetchStart;
 }
 
-interface IOtherProps {
-  children?: (props: ListingContainerProps) => React.ReactNode;
-}
-
-type ListingContainerProps = IPropsFromState & IPropsFromDispatch & IOtherProps & WithStyles<typeof styles>;
+type ListingContainerProps = IPropsFromState & IPropsFromDispatch & WithStyles<typeof styles>;
 
 export class ListingComponent extends React.Component<ListingContainerProps> {
 
@@ -91,9 +88,7 @@ export class ListingComponent extends React.Component<ListingContainerProps> {
             <Grid item lg={12} xl={9}>
               <Grid container spacing={16}>
                 {this.props.data.map((beer) => (
-                  <Grid key={beer.id} item xs={12} sm={6} md={4} lg={3}>
-                    <Paper className={this.props.classes.paper}>item</Paper>
-                  </Grid>
+                  <ListingItem key={beer.id} item={beer} />
                 ))}
               </Grid>
             </Grid>
@@ -105,7 +100,9 @@ export class ListingComponent extends React.Component<ListingContainerProps> {
   }
 
   public componentDidMount() {
-    this.props.fetchStart(1);
+    if (!this.props.loading) {
+      this.props.fetchStart(1);
+    }
   }
 
   public render() {

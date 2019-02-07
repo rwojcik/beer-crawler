@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "typeface-roboto";
-import { ListingContainer } from "./components/Listing/Listing";
+import { ListingContainer as Listing } from "./components/Listing/Listing";
 import { NavBar } from "./components/NavBar";
 
 export class App extends Component {
@@ -8,7 +8,7 @@ export class App extends Component {
     return (
       <React.Fragment>
         <NavBar/>
-        <ListingContainer/>
+        <Listing/>
       </React.Fragment>
     );
   }
