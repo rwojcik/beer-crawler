@@ -12,7 +12,7 @@ import { IApplicationState } from "../../store";
 import { fetchStart } from "../../store/beer/beerActions";
 import { IBeer } from "../../store/beer/beerTypes";
 import { ErrorSnackbar } from "./ErrorSnackbar";
-import { ListingItemContainer as ListingItem } from "./ListingItem";
+import { StyledListingItem as ListingItem } from "./ListingItem";
 import { LoadingSnackbar } from "./LoadingSnackbar";
 
 const styles = (theme: Theme) =>
@@ -71,8 +71,8 @@ export class ListingComponent extends React.Component<ListingContainerProps> {
       return (
         <div className={this.props.classes.root}>
           <Grid container className={this.props.classes.container}>
-            <Grid item xl={1}  />
-            <Grid item lg={12} xl={9}>
+            <Grid item lg={1} />
+            <Grid item md={12} lg={10} >
               <Grid container spacing={16}>
                 {this.props.data.map((beer) => (
                   <Grid key={beer.id} item xs={12} sm={6} md={4} lg={3}>

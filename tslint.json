@@ -10,7 +10,9 @@
         "object-literal-sort-keys": false,
         "member-ordering": false,
         "no-unused-variable": true,
-        "no-unused-expression": true
+        "no-unused-expression": true,
+        "object-literal-key-quotes": false,
+        "indent": [false, "tabs", 2]
     },
     "rulesDirectory": []
 }

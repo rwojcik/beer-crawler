@@ -32,9 +32,11 @@ export interface IBeer {
     }
     twist: any,
   };
+  ingredients: any;
+  food_pairing: string[];
+  brewers_tips: string;
+  contributed_by: string;
 }
-
-export type ApiResponse = Record<string, IBeer[]>;
 
 export enum BeersActionTypes {
   FETCH_START = "@beers/FETCH_START",

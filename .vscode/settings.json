@@ -6,6 +6,7 @@
         "Snackbar",
         "describedby",
         "devtools",
+        "labelledby",
         "middlewares",
         "onstatechange",
         "onupdatefound",
