@@ -1,9 +1,8 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { all, call, fork, put, takeEvery } from "redux-saga/effects";
+import { API_ENDPOINT } from "../../constants";
 import { fetchError, fetchStart, fetchSuccess } from "./beerActions";
 import { BeersActionTypes } from "./beerTypes";
-
-const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT || "https://api.punkapi.com/v2/";
 
 // Here we use `redux-saga` to trigger actions asynchronously. `redux-saga` uses something called a
 // "generator function", which you can read about here:

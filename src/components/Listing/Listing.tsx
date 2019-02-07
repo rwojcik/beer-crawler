@@ -13,7 +13,7 @@ import { fetchStart } from "../../store/beer/beerActions";
 import { IBeer } from "../../store/beer/beerTypes";
 import { ErrorSnackbar } from "./ErrorSnackbar";
 import { StyledListingItem as ListingItem } from "./ListingItem";
-import { LoadingSnackbar } from "./LoadingSnackbar";
+import { StyledLoadingSnackbar as LoadingSnackbar } from "./LoadingSnackbar";
 
 const styles = (theme: Theme) =>
   createStyles({
