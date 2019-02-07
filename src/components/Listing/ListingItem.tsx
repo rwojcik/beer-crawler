@@ -41,9 +41,7 @@ export class ListingItem extends React.Component<ListingContainerProps> {
   public render() {
     const { classes } = this.props;
     return (
-      <Grid item xs={12} sm={6} md={4} lg={3}>
-        <Paper className={classes.paper}>{this.props.item.name}</Paper>
-      </Grid>
+      <Paper className={classes.paper}>{this.props.item.name}</Paper>
     );
   }
 }

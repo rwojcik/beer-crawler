@@ -25,18 +25,6 @@ const styles = (theme: Theme) =>
     container: {
       maxWidth: "1900px",
     },
-    paper: {
-      padding: theme.spacing.unit * 2,
-      margin: "auto",
-    },
-    paperProgress: {
-      padding: theme.spacing.unit * 2,
-      maxWidth: "500px",
-    },
-    paperError: {
-      padding: theme.spacing.unit * 2,
-      maxWidth: "500px",
-    },
   });
 
 interface IPropsFromState {
@@ -88,7 +76,9 @@ export class ListingComponent extends React.Component<ListingContainerProps> {
             <Grid item lg={12} xl={9}>
               <Grid container spacing={16}>
                 {this.props.data.map((beer) => (
-                  <ListingItem key={beer.id} item={beer} />
+                  <Grid key={beer.id} item xs={12} sm={6} md={4} lg={3}>
+                    <ListingItem item={beer} />
+                  </Grid>
                 ))}
               </Grid>
             </Grid>
