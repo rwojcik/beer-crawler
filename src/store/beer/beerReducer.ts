@@ -12,6 +12,7 @@ export const beersReducer: Reducer<IBeersState> = (state = initialState, action)
     case BeersActionTypes.FETCH_START: {
       return {
         ...state,
+        errors: undefined,
         loading: true
       };
     }
@@ -19,6 +20,7 @@ export const beersReducer: Reducer<IBeersState> = (state = initialState, action)
       return {
         ...state,
         data: action.payload,
+        errors: undefined,
         loading: false,
       };
     }

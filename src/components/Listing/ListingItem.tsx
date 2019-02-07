@@ -9,9 +9,9 @@ import {
 import React from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
-import { IApplicationState } from "../store";
-import { fetchStart } from "../store/beer/beerActions";
-import { IBeer } from "../store/beer/beerTypes";
+import { IApplicationState } from "../../store";
+import { fetchStart } from "../../store/beer/beerActions";
+import { IBeer } from "../../store/beer/beerTypes";
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -21,18 +21,7 @@ const styles = (theme: Theme) =>
     },
     paper: {
       padding: theme.spacing.unit * 2,
-      margin: "auto",
-      maxWidth: 500
-    },
-    image: {
-      width: 128,
-      height: 128
-    },
-    img: {
-      margin: "auto",
-      display: "block",
-      maxWidth: "100%",
-      maxHeight: "100%"
+      margin: "auto"
     }
   });
 
@@ -56,19 +45,15 @@ export class Listing extends React.Component<
   ListingContainerProps & IOtherProps & WithStyles<typeof styles>
 > {
   public componentDidMount() {
-    this.props.fetchStart(1);
+    this.props.fetchStart(0);
   }
 
   public render() {
     const { classes } = this.props;
     return (
-      <div className={classes.root}>
-        <Paper className={classes.paper}>
-          <Grid container>
-            <Grid item>item</Grid>
-          </Grid>
-        </Paper>
-      </div>
+      <Grid item xs={12} sm={6} md={4} lg={3}>
+        <Paper className={classes.paper}>item</Paper>
+      </Grid>
     );
   }
 }

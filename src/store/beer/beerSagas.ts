@@ -25,15 +25,14 @@ function* handleFetch(action: ReturnType<typeof fetchStart>) {
   try {
     // To call async functions, use redux-saga's `call()`.
     const res = yield call(beersGet, action);
-
     if (res.error) {
       yield put(fetchError(res.error));
     } else {
-      yield put(fetchSuccess(res));
+      yield put(fetchSuccess(res.data));
     }
   } catch (err) {
     if (err instanceof Error) {
-      yield put(fetchError(err.stack!));
+      yield put(fetchError(err.message!));
     } else {
       yield put(fetchError("An unknown error occurred."));
     }

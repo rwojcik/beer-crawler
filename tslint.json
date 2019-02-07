@@ -7,7 +7,8 @@
     "rules": {
         "no-default-export": true,
         "trailing-comma": true,
-        "object-literal-sort-keys": false
+        "object-literal-sort-keys": false,
+        "member-ordering": false,
     },
     "rulesDirectory": []
 }
