@@ -1,11 +1,14 @@
 import { Reducer } from "redux";
 import { BeersActionTypes, IBeersState } from "./beerTypes";
+import { fetchStart, fetchError, fetchSuccess } from "./beerActions";
 
 const initialState: IBeersState = {
   data: [],
   errors: undefined,
-  loading: false
+  loading: false,
+  page: 1,
 };
+
 
 export const beersReducer: Reducer<IBeersState> = (state = initialState, action) => {
   switch (action.type) {
@@ -19,15 +22,16 @@ export const beersReducer: Reducer<IBeersState> = (state = initialState, action)
     case BeersActionTypes.FETCH_SUCCESS: {
       return {
         ...state,
-        data: action.payload,
+        data: action.payload.data,
         errors: undefined,
         loading: false,
+        page: action.payload.page,
       };
     }
     case BeersActionTypes.FETCH_ERROR: {
       return {
         ...state,
-        errors: action.payload,
+        errors: action.payload.message,
         loading: false,
       };
     }

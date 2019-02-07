@@ -17,6 +17,7 @@ import {
   Typography,
   LinearProgress
 } from "@material-ui/core";
+import { ErrorSnackbar } from "./ErrorSnackbar";
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -42,32 +43,30 @@ interface IPropsFromState {
   data?: IBeer[];
   errors: string | undefined;
   loading: boolean;
+  page: number;
 }
 
 interface IPropsFromDispatch {
   fetchStart: typeof fetchStart;
 }
 
-type ListingContainerProps = IPropsFromState & IPropsFromDispatch;
-
 interface IOtherProps {
   children?: (props: ListingContainerProps) => React.ReactNode;
 }
 
-export class ListingComponent extends React.Component<
-  ListingContainerProps & IOtherProps & WithStyles<typeof styles>
-> {
+type ListingContainerProps = IPropsFromState & IPropsFromDispatch & IOtherProps & WithStyles<typeof styles>;
+
+export class ListingComponent extends React.Component<ListingContainerProps> {
+
   private renderError = () => {
+    const onRetry = () => this.props.fetchStart(this.props.page);
+
     if (this.props.errors) {
       return (
-        <div className={this.props.classes.root}>
-          <Paper className={this.props.classes.paperError} elevation={1}>
-            <Typography variant="h5" component="h3">
-              Error
-            </Typography>
-            <Typography component="p">{this.props.errors}</Typography>
-          </Paper>
-        </div>
+        <ErrorSnackbar 
+          error={this.props.errors}
+          onRetry={onRetry}
+        />
       );
     }
 
@@ -75,7 +74,7 @@ export class ListingComponent extends React.Component<
   };
 
   private renderProgress = () => {
-    if (this.props.loading || true) {
+    if (this.props.loading) {
       return (
         <div className={this.props.classes.root}>
           <Paper className={this.props.classes.paperProgress} elevation={1}>
@@ -110,7 +109,7 @@ export class ListingComponent extends React.Component<
   };
 
   public componentDidMount() {
-    this.props.fetchStart(0);
+    this.props.fetchStart(1);
   }
 
   public render() {
@@ -129,7 +128,8 @@ const StyledListing = withStyles(styles)(ListingComponent);
 const mapStateToProps = ({ beers }: IApplicationState) => ({
   data: beers.data,
   errors: beers.errors,
-  loading: beers.loading
+  loading: beers.loading,
+  page: beers.page,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
@@ -138,5 +138,5 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 
 export const ListingContainer = connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(StyledListing);

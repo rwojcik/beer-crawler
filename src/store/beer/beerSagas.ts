@@ -13,7 +13,7 @@ function beersGet(action: ReturnType<typeof fetchStart>) {
   const config: AxiosRequestConfig = {
     baseURL: API_ENDPOINT,
     params: {
-      page: action.payload,
+      page: action.payload.page,
       per_page: 20,
     },
   };
@@ -28,7 +28,7 @@ function* handleFetch(action: ReturnType<typeof fetchStart>) {
     if (res.error) {
       yield put(fetchError(res.error));
     } else {
-      yield put(fetchSuccess(res.data));
+      yield put(fetchSuccess(res.data, action.payload.page));
     }
   } catch (err) {
     if (err instanceof Error) {

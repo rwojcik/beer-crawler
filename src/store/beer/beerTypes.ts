@@ -46,4 +46,5 @@ export interface IBeersState {
   readonly loading: boolean;
   readonly data: IBeer[];
   readonly errors?: string;
+  readonly page: number;
 }

@@ -3,6 +3,8 @@
     "editor.tabSize": 2,
     "html.format.endWithNewline": true,
     "cSpell.words": [
+        "Snackbar",
+        "describedby",
         "devtools",
         "middlewares",
         "onstatechange",
