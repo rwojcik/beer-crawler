@@ -4,7 +4,7 @@ import {
   createStyles,
   Theme,
   withStyles,
-  WithStyles
+  WithStyles,
 } from "@material-ui/core/styles";
 import React from "react";
 import { connect } from "react-redux";
@@ -17,12 +17,12 @@ const styles = (theme: Theme) =>
   createStyles({
     root: {
       padding: theme.spacing.unit * 2,
-      flexGrow: 1
+      flexGrow: 1,
     },
     paper: {
       padding: theme.spacing.unit * 2,
-      margin: "auto"
-    }
+      margin: "auto",
+    },
   });
 
 interface IPropsFromState {
@@ -63,14 +63,14 @@ const StyledListing = withStyles(styles)(Listing);
 const mapStateToProps = ({ beers }: IApplicationState) => ({
   data: beers.data,
   errors: beers.errors,
-  loading: beers.loading
+  loading: beers.loading,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  fetchStart: (page: number) => dispatch(fetchStart(page))
+  fetchStart: (page: number) => dispatch(fetchStart(page)),
 });
 
 export const ListingComponent = connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(StyledListing);

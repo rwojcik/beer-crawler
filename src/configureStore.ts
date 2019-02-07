@@ -14,7 +14,7 @@ import { IApplicationState, rootReducer, rootSaga } from "./store";
 
 export function configureStore(
   history: History,
-  initialState?: IApplicationState
+  initialState?: IApplicationState,
 ): Store<IApplicationState> {
   // create the composing function for our middlewares
   const composeEnhancers = composeWithDevTools({});
@@ -29,7 +29,7 @@ export function configureStore(
   const store = createStore(
     reducer,
     initialState!,
-    composeEnhancers(applyMiddleware(routerMiddleware(history), sagaMiddleware))
+    composeEnhancers(applyMiddleware(routerMiddleware(history), sagaMiddleware)),
   );
 
   // Don't forget to run the root saga, and return the store object.
