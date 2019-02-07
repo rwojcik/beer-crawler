@@ -22,7 +22,7 @@ const styles = (theme: Theme) =>
       flexGrow: 1,
     },
     container: {
-      maxWidth: "1900px",
+      maxWidth: 1400,
     },
   });
 

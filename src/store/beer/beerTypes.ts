@@ -9,7 +9,7 @@ export interface IBeer {
   tagline: string;
   first_brewed: string;
   description: string;
-  image_url: string[];
+  image_url: string;
   abv: number;
   ibu: number;
   target_fg: number;
