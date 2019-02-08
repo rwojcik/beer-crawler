@@ -5,7 +5,9 @@ import {
   withStyles,
   WithStyles,
 } from "@material-ui/core/styles";
+import debounce from "lodash/debounce";
 import React from "react";
+import InfiniteScroll from "react-infinite-scroller";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { IApplicationState } from "../../store";
@@ -69,6 +71,12 @@ export class ListingComponent extends React.Component<ListingContainerProps> {
     return null;
   }
 
+  private loadMoreItems = () => {
+    if (!this.props.loading) {
+      debounce(this.props.fetchStart, 1000, { leading: true })(this.props.page + 1);
+    }
+  }
+
   private renderData = () => {
     if (this.props.data && this.props.data.length > 0) {
       return (
@@ -76,14 +84,20 @@ export class ListingComponent extends React.Component<ListingContainerProps> {
           <Grid container className={this.props.classes.container}>
             <Grid item lg={1} />
             <Grid item md={12} lg={10} >
-              <Grid container spacing={16}>
-                {this.props.data.map((beer) => (
-                  <Grid key={beer.id} item xs={12} sm={6} md={4} lg={3}>
-                    <ListingItem item={beer} />
-                  </Grid>
-                ))}
-                {this.renderProgress()}
-              </Grid>
+              <InfiniteScroll
+                pageStart={0}
+                loadMore={this.loadMoreItems}
+                hasMore
+              >
+                <Grid container spacing={16}>
+                    {this.props.data.map((beer) => (
+                      <Grid key={beer.id} item xs={12} sm={6} md={4} lg={3}>
+                        <ListingItem item={beer} />
+                      </Grid>
+                    ))}
+                  {this.renderProgress()}
+                </Grid>
+              </InfiniteScroll>
             </Grid>
           </Grid>
         </div>

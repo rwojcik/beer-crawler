@@ -20,7 +20,7 @@ export const beersReducer: Reducer<IBeersState> = (state = initialState, action)
     case BeersActionTypes.FETCH_SUCCESS: {
       return {
         ...state,
-        data: action.payload.data,
+        data: [...state.data, ...action.payload.data],
         errors: undefined,
         loading: false,
         page: action.payload.page,
