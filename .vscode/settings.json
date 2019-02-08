@@ -3,7 +3,9 @@
     "editor.tabSize": 2,
     "html.format.endWithNewline": true,
     "cSpell.words": [
-        "Snackbar",
+        "snackbar",
+        "truthy",
+        "browserslist",
         "describedby",
         "devtools",
         "labelledby",
@@ -11,6 +13,7 @@
         "onstatechange",
         "onupdatefound",
         "precached",
+        "scroller",
         "typesafe"
     ]
 }

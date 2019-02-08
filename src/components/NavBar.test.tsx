@@ -14,3 +14,10 @@ it("renders title", () => {
   expect(div.textContent).toContain("BeerCrawler");
   ReactDOM.unmountComponentAtNode(div);
 });
+
+it("matches snapshot", () => {
+  const div = document.createElement("div");
+  ReactDOM.render(<NavBar />, div);
+  expect(div).toMatchSnapshot();
+  ReactDOM.unmountComponentAtNode(div);
+});

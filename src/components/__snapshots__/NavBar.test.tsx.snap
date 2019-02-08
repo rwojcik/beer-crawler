@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<div>
+  <header
+    class="MuiPaper-root-162 MuiPaper-elevation4-168 MuiAppBar-root-153 MuiAppBar-positionStatic-157 MuiAppBar-colorPrimary-160"
+  >
+    <div
+      class="MuiToolbar-root-189 MuiToolbar-regular-191 MuiToolbar-gutters-190"
+    >
+      <h2
+        class="MuiTypography-root-193 MuiTypography-title-199 MuiTypography-colorInherit-222"
+      >
+        BeerCrawler
+      </h2>
+    </div>
+  </header>
+</div>
+`;
