@@ -13,7 +13,7 @@ import { fetchStart } from "../../store/beer/beerActions";
 import { IBeer } from "../../store/beer/beerTypes";
 import { ErrorSnackbar } from "./ErrorSnackbar";
 import { StyledListingItem as ListingItem } from "./ListingItem";
-import { StyledLoadingSnackbar as LoadingSnackbar } from "./LoadingSnackbar";
+import { StyledLoadingItem as LoadingItem } from "./LoadingItem";
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -58,7 +58,11 @@ export class ListingComponent extends React.Component<ListingContainerProps> {
   private renderProgress = () => {
     if (this.props.loading) {
       return (
-        <LoadingSnackbar />
+        [-4, -3, -2, -1].map((id) => (
+          <Grid key={id} item xs={12} sm={6} md={4} lg={3}>
+            <LoadingItem />
+          </Grid>
+        ))
       );
     }
 
@@ -78,6 +82,7 @@ export class ListingComponent extends React.Component<ListingContainerProps> {
                     <ListingItem item={beer} />
                   </Grid>
                 ))}
+                {this.renderProgress()}
               </Grid>
             </Grid>
           </Grid>
@@ -98,7 +103,6 @@ export class ListingComponent extends React.Component<ListingContainerProps> {
       <React.Fragment>
         {this.renderError()}
         {this.renderData()}
-        {this.renderProgress()}
       </React.Fragment>
     );
   }

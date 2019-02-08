@@ -17,8 +17,6 @@ import { StyledDetailDialog as DetailDialog } from "../Detail/DetailDialog";
 
 const styles = (theme: Theme) =>
   createStyles({
-    card: {
-    },
     media: {
       objectFit: "contain",
       maxWidth: "100%",
@@ -68,7 +66,7 @@ export class ListingItem extends React.Component<ListingItemProps, ListingItemSt
     const { classes } = this.props;
     return (
       <React.Fragment>
-        <Card className={classes.card}>
+        <Card>
           <CardActionArea onClick={this.toggleDetail}>
             <CardMedia
               component="img"
