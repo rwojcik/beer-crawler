@@ -1,12 +1,8 @@
 import axios, { AxiosRequestConfig } from "axios";
-import { all, call, fork, put, takeEvery } from "redux-saga/effects";
+import { all, call, fork, put, takeLeading } from "redux-saga/effects";
 import { API_ENDPOINT } from "../../constants";
 import { fetchError, fetchStart, fetchSuccess } from "./beerActions";
 import { BeersActionTypes } from "./beerTypes";
-
-// Here we use `redux-saga` to trigger actions asynchronously. `redux-saga` uses something called a
-// "generator function", which you can read about here:
-// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*
 
 function beersGet(action: ReturnType<typeof fetchStart>) {
   const config: AxiosRequestConfig = {
@@ -22,13 +18,8 @@ function beersGet(action: ReturnType<typeof fetchStart>) {
 
 function* handleFetch(action: ReturnType<typeof fetchStart>) {
   try {
-    // To call async functions, use redux-saga's `call()`.
     const res = yield call(beersGet, action);
-    if (res.error) {
-      yield put(fetchError(res.error));
-    } else {
-      yield put(fetchSuccess(res.data, action.payload.page));
-    }
+    yield put(fetchSuccess(res.data, action.payload.page));
   } catch (err) {
     if (err instanceof Error) {
       yield put(fetchError(err.message!));
@@ -38,9 +29,8 @@ function* handleFetch(action: ReturnType<typeof fetchStart>) {
   }
 }
 
-// watch Redux for a specific action type, and run saga
 function* watchFetchRequest() {
-  yield takeEvery(BeersActionTypes.FETCH_START, handleFetch);
+  yield takeLeading(BeersActionTypes.FETCH_START, handleFetch);
 }
 
 export function* beersSaga() {

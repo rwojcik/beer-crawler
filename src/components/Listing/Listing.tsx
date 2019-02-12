@@ -5,7 +5,6 @@ import {
   withStyles,
   WithStyles,
 } from "@material-ui/core/styles";
-import debounce from "lodash/debounce";
 import React from "react";
 import InfiniteScroll from "react-infinite-scroller";
 import { connect } from "react-redux";
@@ -73,7 +72,7 @@ export class ListingComponent extends React.Component<ListingContainerProps> {
 
   private loadMoreItems = () => {
     if (!this.props.loading) {
-      debounce(this.props.fetchStart, 1000, { leading: true })(this.props.page + 1);
+      this.props.fetchStart(this.props.page + 1);
     }
   }
 
