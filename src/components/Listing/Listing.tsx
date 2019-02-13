@@ -10,7 +10,7 @@ import InfiniteScroll from "react-infinite-scroller";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { IApplicationState } from "../../store";
-import { fetchStart } from "../../store/beer/beerActions";
+import { fetchStart as fetchStartActionCreator } from "../../store/beer/beerActions";
 import { IBeer } from "../../store/beer/beerTypes";
 import { ErrorSnackbar } from "./ErrorSnackbar";
 import { StyledListingItem as ListingItem } from "./ListingItem";
@@ -32,10 +32,11 @@ interface IPropsFromState {
   errors: string | undefined;
   loading: boolean;
   page: number;
+  pages: number;
 }
 
 interface IPropsFromDispatch {
-  fetchStart: typeof fetchStart;
+  fetchStart: typeof fetchStartActionCreator;
 }
 
 type ListingContainerProps = IPropsFromState & IPropsFromDispatch & WithStyles<typeof styles>;
@@ -72,8 +73,8 @@ export class ListingComponent extends React.Component<ListingContainerProps> {
   }
 
   private loadMoreItems = () => {
-    const { page, fetchStart, loading } = this.props;
-    if (!loading) {
+    const { page, pages, fetchStart, loading } = this.props;
+    if (!loading && page < pages) {
       fetchStart(page + 1);
     }
   }
@@ -110,8 +111,9 @@ export class ListingComponent extends React.Component<ListingContainerProps> {
   }
 
   public componentDidMount() {
-    if (!this.props.loading) {
-      this.props.fetchStart(1);
+    const { loading, pages, page, fetchStart } = this.props;
+    if (!loading && page < pages) {
+      fetchStart(page + 1);
     }
   }
 
@@ -132,10 +134,11 @@ const mapStateToProps = ({ beers }: IApplicationState) => ({
   errors: beers.errors,
   loading: beers.loading,
   page: beers.page,
+  pages: beers.pages,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  fetchStart: (page: number) => dispatch(fetchStart(page)),
+  fetchStart: (page: number) => dispatch(fetchStartActionCreator(page)),
 });
 
 export const ListingContainer = connect(

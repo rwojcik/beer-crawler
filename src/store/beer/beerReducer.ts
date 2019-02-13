@@ -1,11 +1,13 @@
 import { Reducer } from "redux";
+import { ITEMS_PER_PAGE } from "../../constants";
 import { BeersActionTypes, IBeersState } from "./beerTypes";
 
 const initialState: IBeersState = {
   data: [],
   errors: undefined,
   loading: false,
-  page: 1,
+  page: 0,
+  pages: 1,
 };
 
 export const beersReducer: Reducer<IBeersState> = (state = initialState, action) => {
@@ -24,6 +26,7 @@ export const beersReducer: Reducer<IBeersState> = (state = initialState, action)
         errors: undefined,
         loading: false,
         page: action.payload.page,
+        pages: action.payload.data.length === ITEMS_PER_PAGE ? action.payload.page + 1 : action.payload.page,
       };
     }
     case BeersActionTypes.FETCH_ERROR: {
