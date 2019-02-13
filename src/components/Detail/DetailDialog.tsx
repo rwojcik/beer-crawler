@@ -130,6 +130,12 @@ export class DetailDialog extends React.Component<DetailDialogProps> {
                 {item.description}
               </DialogContentText>
               {this.renderFoodPairing()}
+              <Typography variant="h6" className={classes.foodListTitle}>
+                Brewer's tips:
+              </Typography>
+              <DialogContentText variant="body1" component="p">
+                {item.brewers_tips}
+              </DialogContentText>
             </Grid>
             <Grid item xs={12}>
               <Recommended item={item}/>
