@@ -42,12 +42,13 @@ type ListingContainerProps = IPropsFromState & IPropsFromDispatch & WithStyles<t
 
 export class ListingComponent extends React.Component<ListingContainerProps> {
   private renderError = () => {
-    const onRetry = () => this.props.fetchStart(this.props.page);
+    const { page, fetchStart, errors } = this.props;
+    const onRetry = () => fetchStart(page);
 
-    if (this.props.errors) {
+    if (errors) {
       return (
         <ErrorSnackbar
-          error={this.props.errors}
+          error={errors}
           onRetry={onRetry}
         />
       );
@@ -71,16 +72,19 @@ export class ListingComponent extends React.Component<ListingContainerProps> {
   }
 
   private loadMoreItems = () => {
-    if (!this.props.loading) {
-      this.props.fetchStart(this.props.page + 1);
+    const { page, fetchStart, loading } = this.props;
+    if (!loading) {
+      fetchStart(page + 1);
     }
   }
 
   private renderData = () => {
-    if (this.props.data && this.props.data.length > 0) {
+    const { classes, data } = this.props;
+
+    if (data && data.length > 0) {
       return (
-        <div className={this.props.classes.root}>
-          <Grid container className={this.props.classes.container}>
+        <div className={classes.root}>
+          <Grid container className={classes.container}>
             <Grid item lg={1} />
             <Grid item md={12} lg={10} >
               <InfiniteScroll
@@ -89,7 +93,7 @@ export class ListingComponent extends React.Component<ListingContainerProps> {
                 hasMore
               >
                 <Grid container spacing={16}>
-                    {this.props.data.map((beer) => (
+                    {data.map((beer) => (
                       <Grid key={beer.id} item xs={12} sm={6} md={4} lg={3}>
                         <ListingItem item={beer} />
                       </Grid>

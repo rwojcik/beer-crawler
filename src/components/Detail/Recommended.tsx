@@ -75,11 +75,12 @@ export class Recommended extends React.Component<RecommendedProps, RecommendedSt
   };
 
   public componentDidMount() {
-    getRecommended(this.props.item)
+    const { item } = this.props;
+    getRecommended(item)
       .then((res: AxiosResponse<IBeer[]>) => {
         this.setState({
           loading: false,
-          recommended: res.data.filter((item) => item.id !== this.props.item.id),
+          recommended: res.data.filter((resItem) => resItem.id !== item.id),
         });
       })
       .catch(() => {
@@ -90,17 +91,19 @@ export class Recommended extends React.Component<RecommendedProps, RecommendedSt
   }
 
   public render() {
-    if (this.state.loading) {
+    const { classes } = this.props;
+    const { loading, recommended } = this.state;
+    if (loading) {
       return(
         <React.Fragment>
-          <Typography variant="h6" className={this.props.classes.title}>
+          <Typography variant="h6" className={classes.title}>
             <Skeleton height={32} width={180} />
           </Typography>
           <Grid container spacing={16}>
             {
               [-3, -2, -1].map((id) => (
                 <Grid key={id} item xs={12} sm={6} md={4}>
-                  <Paper className={`${this.props.classes.paper} ${this.props.classes.skeleton}`}>
+                  <Paper className={`${classes.paper} ${classes.skeleton}`}>
                     <Skeleton height={100} width={100} />
                     <Skeleton />
                   </Paper>
@@ -112,19 +115,19 @@ export class Recommended extends React.Component<RecommendedProps, RecommendedSt
       );
     }
 
-    if (this.state.recommended == null || !this.state.recommended.length) { return null; }
+    if (recommended == null || !recommended.length) { return null; }
 
     return (
       <React.Fragment>
-        <Typography variant="h6" className={this.props.classes.title}>
+        <Typography variant="h6" className={classes.title}>
           You might also like:
         </Typography>
         <Grid container spacing={16}>
           {
-            this.state.recommended.map((item) => (
+            recommended.map((item) => (
               <Grid key={item.id} item xs={12} sm={6} md={4}>
-                <Paper className={this.props.classes.paper}>
-                  <img className={this.props.classes.preview} src={item.image_url} />
+                <Paper className={classes.paper}>
+                  <img className={classes.preview} src={item.image_url} />
                   <Typography variant="h6" align="center">
                     {item.name}
                   </Typography>

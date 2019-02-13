@@ -51,7 +51,6 @@ export class ListingItem extends React.Component<ListingItemProps, ListingItemSt
 
   private renderDetail = () => {
     if (this.state.showDetail) {
-
       return(
         <DetailDialog
           item={this.props.item}
@@ -63,7 +62,7 @@ export class ListingItem extends React.Component<ListingItemProps, ListingItemSt
   }
 
   public render() {
-    const { classes } = this.props;
+    const { classes, item } = this.props;
     return (
       <React.Fragment>
         <Card>
@@ -71,15 +70,15 @@ export class ListingItem extends React.Component<ListingItemProps, ListingItemSt
             <CardMedia
               component="img"
               className={classes.media}
-              image={this.props.item.image_url}
-              title={this.props.item.name}
+              image={item.image_url}
+              title={item.name}
             />
             <CardContent>
               <Typography gutterBottom variant="h5" component="h2">
-                {this.props.item.name}
+                {item.name}
               </Typography>
               <Typography component="p">
-                {this.props.item.tagline}
+                {item.tagline}
               </Typography>
             </CardContent>
           </CardActionArea>

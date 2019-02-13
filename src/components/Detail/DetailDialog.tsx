@@ -71,15 +71,17 @@ const Transition: FunctionComponent<TransitionProps> = (props) => (
 
 export class DetailDialog extends React.Component<DetailDialogProps> {
   private renderFoodPairing(): React.ReactNode {
-    if (this.props.item.food_pairing && this.props.item.food_pairing.length) {
+    const { item, classes} = this.props;
+
+    if (item.food_pairing && item.food_pairing.length) {
       return (
         <React.Fragment>
-          <Typography variant="h6" className={this.props.classes.foodListTitle}>
+          <Typography variant="h6" className={classes.foodListTitle}>
             Best served with:
           </Typography>
-          <ul className={this.props.classes.foodList}>
-            {this.props.item.food_pairing.map((food) => (
-              <Typography key={food} component="li" variant="body1" classes={{root: this.props.classes.foodItemRoot}}>
+          <ul className={classes.foodList}>
+            {item.food_pairing.map((food) => (
+              <Typography key={food} component="li" variant="body1" classes={{root: classes.foodItemRoot}}>
                 {food}
               </Typography>
             ))}
@@ -91,12 +93,14 @@ export class DetailDialog extends React.Component<DetailDialogProps> {
   }
 
   public render() {
+    const { onClose, classes, item } = this.props;
+
     return (
       <Dialog
           open
           TransitionComponent={Transition}
           keepMounted
-          onClose={this.props.onClose}
+          onClose={onClose}
           aria-labelledby="alert-dialog-slide-title"
           aria-describedby="alert-dialog-slide-description"
           maxWidth="md"
@@ -104,31 +108,31 @@ export class DetailDialog extends React.Component<DetailDialogProps> {
         <DialogContent>
           <Grid container spacing={16}>
             <Grid item xs={12} sm={4}>
-              <img className={this.props.classes.preview} src={this.props.item.image_url} />
+              <img className={classes.preview} src={item.image_url} />
             </Grid>
             <Grid item sm={8}>
               <Typography variant="h3" id="alert-dialog-slide-title">
-                {this.props.item.name}
+                {item.name}
               </Typography>
               <Typography variant="subtitle1" color="textSecondary">
-                {this.props.item.tagline}
+                {item.tagline}
               </Typography>
               <Divider
                 variant="middle"
-                classes={{ root: this.props.classes.dividerRoot }}
+                classes={{ root: classes.dividerRoot }}
               />
-              <Typography component="p" variant="body1" className={this.props.classes.parameters}>
-                <BeerParameter unit="IBU" value={this.props.item.ibu} />
-                <BeerParameter unit="ABV" value={this.props.item.abv} suffix="%" />
-                <BeerParameter unit="EBC" value={this.props.item.ebc} />
+              <Typography component="p" variant="body1" className={classes.parameters}>
+                <BeerParameter unit="IBU" value={item.ibu} />
+                <BeerParameter unit="ABV" value={item.abv} suffix="%" />
+                <BeerParameter unit="EBC" value={item.ebc} />
               </Typography>
               <DialogContentText id="alert-dialog-slide-description" variant="body1" component="p">
-                {this.props.item.description}
+                {item.description}
               </DialogContentText>
               {this.renderFoodPairing()}
             </Grid>
             <Grid item xs={12}>
-              <Recommended item={this.props.item}/>
+              <Recommended item={item}/>
             </Grid>
           </Grid>
         </DialogContent>
