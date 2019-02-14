@@ -14,6 +14,8 @@ import { fetchStart as fetchStartActionCreator } from "../../store/beer/beerActi
 import { IBeer } from "../../store/beer/beerTypes";
 import { ListingError } from "./ListingError";
 import { ListingItems } from "./ListingItems";
+import { ListingProgress } from "./ListingProgress";
+import { StyledListingFooter as ListingFooter } from "./ListingFooter";
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -61,7 +63,7 @@ export class ListingComponent extends React.Component<ListingContainerProps> {
   }
 
   public render() {
-    const { classes, data, loading, errors, page, pages } = this.props;
+    const { classes, data, errors, page, pages } = this.props;
 
     return (
       <div className={classes.root}>
@@ -74,10 +76,17 @@ export class ListingComponent extends React.Component<ListingContainerProps> {
               hasMore={pages > page}
               initialLoad={false}
             >
-              <ListingItems
-                data={data}
-                loading={pages > page}
-              />
+              <Grid container spacing={16}>
+                <ListingItems
+                  data={data}
+                />
+                <ListingProgress
+                  loading={pages > page}
+                />
+                <ListingFooter
+                  lastPage={pages === page}
+                />
+              </Grid>
             </InfiniteScroll>
           </Grid>
         </Grid>
