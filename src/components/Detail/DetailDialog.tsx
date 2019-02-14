@@ -15,6 +15,7 @@ import Typography from "@material-ui/core/Typography";
 import React, { FunctionComponent } from "react";
 import { IBeer } from "../../store/beer/beerTypes";
 import { StyledBeerParameter as BeerParameter } from "./BeerParameter";
+import { StyledFoodPairing as FoodPairing } from "./FoodPairing";
 import { StyledRecommended as Recommended } from "./Recommended";
 
 const styles = (theme: Theme) =>
@@ -27,6 +28,14 @@ const styles = (theme: Theme) =>
       marginLeft: "auto",
       marginRight: "auto",
       objectFit: "contain",
+      [theme.breakpoints.down("sm")]: {
+        maxHeight: 250,
+      },
+    },
+    title: {
+      [theme.breakpoints.down("sm")]: {
+        fontSize: "2rem",
+      },
     },
     dividerRoot: {
       maxWidth: 90,
@@ -38,22 +47,8 @@ const styles = (theme: Theme) =>
       marginTop: theme.spacing.unit * 2,
       marginBottom: theme.spacing.unit * 2,
     },
-    foodListTitle: {
+    subTitle: {
       marginTop: theme.spacing.unit * 2,
-    },
-    foodList: {
-      paddingLeft: 0,
-      margin: theme.spacing.unit,
-    },
-    foodItemRoot: {
-      display: "list-item",
-      listStyleType: "none",
-      "&::before": {
-        content: "'– '",
-      },
-    },
-    recommendTitle: {
-      paddingTop: theme.spacing.unit * 3,
     },
   });
 
@@ -70,28 +65,6 @@ const Transition: FunctionComponent<TransitionProps> = (props) => (
 );
 
 export class DetailDialog extends React.Component<DetailDialogProps> {
-  private renderFoodPairing(): React.ReactNode {
-    const { item, classes} = this.props;
-
-    if (item.food_pairing && item.food_pairing.length) {
-      return (
-        <React.Fragment>
-          <Typography variant="h6" className={classes.foodListTitle}>
-            Best served with:
-          </Typography>
-          <ul className={classes.foodList}>
-            {item.food_pairing.map((food) => (
-              <Typography key={food} component="li" variant="body1" classes={{root: classes.foodItemRoot}}>
-                {food}
-              </Typography>
-            ))}
-          </ul>
-
-        </React.Fragment>
-      );
-    }
-  }
-
   public render() {
     const { onClose, classes, item } = this.props;
 
@@ -111,7 +84,7 @@ export class DetailDialog extends React.Component<DetailDialogProps> {
               <img className={classes.preview} src={item.image_url} />
             </Grid>
             <Grid item sm={8}>
-              <Typography variant="h3" id="alert-dialog-slide-title">
+              <Typography className={classes.title} variant="h3" id="alert-dialog-slide-title">
                 {item.name}
               </Typography>
               <Typography variant="subtitle1" color="textSecondary">
@@ -129,8 +102,10 @@ export class DetailDialog extends React.Component<DetailDialogProps> {
               <DialogContentText id="alert-dialog-slide-description" variant="body1" component="p">
                 {item.description}
               </DialogContentText>
-              {this.renderFoodPairing()}
-              <Typography variant="h6" className={classes.foodListTitle}>
+              <FoodPairing
+                item={item}
+              />
+              <Typography variant="h6" className={classes.subTitle}>
                 Brewer's tips:
               </Typography>
               <DialogContentText variant="body1" component="p">
