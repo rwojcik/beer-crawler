@@ -71,12 +71,12 @@ export class ListingComponent extends React.Component<ListingContainerProps> {
             <InfiniteScroll
               pageStart={0}
               loadMore={this.loadMoreItems}
-              hasMore={ pages > page}
+              hasMore={pages > page}
               initialLoad={false}
             >
               <ListingItems
                 data={data}
-                loading={loading}
+                loading={pages > page}
               />
             </InfiniteScroll>
           </Grid>
