@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { all, call, fork, put, takeLeading } from "redux-saga/effects";
-import { API_ENDPOINT } from "../../constants";
+import { API_ENDPOINT, ITEMS_PER_PAGE } from "../../constants";
 import { fetchError, fetchStart, fetchSuccess } from "./beerActions";
 import { BeersActionTypes } from "./beerTypes";
 
@@ -9,7 +9,7 @@ function beersGet(action: ReturnType<typeof fetchStart>) {
     baseURL: API_ENDPOINT,
     params: {
       page: action.payload.page,
-      per_page: 20,
+      per_page: ITEMS_PER_PAGE,
     },
   };
 

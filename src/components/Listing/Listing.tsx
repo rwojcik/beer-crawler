@@ -12,9 +12,8 @@ import { Dispatch } from "redux";
 import { IApplicationState } from "../../store";
 import { fetchStart as fetchStartActionCreator } from "../../store/beer/beerActions";
 import { IBeer } from "../../store/beer/beerTypes";
-import { ErrorSnackbar } from "./ErrorSnackbar";
-import { StyledListingItem as ListingItem } from "./ListingItem";
-import { StyledLoadingItem as LoadingItem } from "./LoadingItem";
+import { ListingError } from "./ListingError";
+import { ListingItems } from "./ListingItems";
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -42,72 +41,11 @@ interface IPropsFromDispatch {
 type ListingContainerProps = IPropsFromState & IPropsFromDispatch & WithStyles<typeof styles>;
 
 export class ListingComponent extends React.Component<ListingContainerProps> {
-  private renderError = () => {
-    const { page, fetchStart, errors } = this.props;
-    const onRetry = () => fetchStart(page);
-
-    if (errors) {
-      return (
-        <ErrorSnackbar
-          error={errors}
-          onRetry={onRetry}
-        />
-      );
-    }
-
-    return null;
-  }
-
-  private renderProgress = () => {
-    if (this.props.loading) {
-      return (
-        [-4, -3, -2, -1].map((id) => (
-          <Grid key={id} item xs={12} sm={6} md={4} lg={3}>
-            <LoadingItem />
-          </Grid>
-        ))
-      );
-    }
-
-    return null;
-  }
-
   private loadMoreItems = () => {
     const { page, pages, fetchStart, loading } = this.props;
     if (!loading && page < pages) {
       fetchStart(page + 1);
     }
-  }
-
-  private renderData = () => {
-    const { classes, data } = this.props;
-
-    if (data && data.length > 0) {
-      return (
-        <div className={classes.root}>
-          <Grid container className={classes.container}>
-            <Grid item lg={1} />
-            <Grid item md={12} lg={10} >
-              <InfiniteScroll
-                pageStart={0}
-                loadMore={this.loadMoreItems}
-                hasMore
-              >
-                <Grid container spacing={16}>
-                    {data.map((beer) => (
-                      <Grid key={beer.id} item xs={12} sm={6} md={4} lg={3}>
-                        <ListingItem item={beer} />
-                      </Grid>
-                    ))}
-                  {this.renderProgress()}
-                </Grid>
-              </InfiniteScroll>
-            </Grid>
-          </Grid>
-        </div>
-      );
-    }
-    return null;
   }
 
   public componentDidMount() {
@@ -117,12 +55,37 @@ export class ListingComponent extends React.Component<ListingContainerProps> {
     }
   }
 
+  private retryFetch = () => {
+    const { fetchStart, page } = this.props;
+    fetchStart(page + 1);
+  }
+
   public render() {
+    const { classes, data, loading, errors, page, pages } = this.props;
+
     return (
-      <React.Fragment>
-        {this.renderError()}
-        {this.renderData()}
-      </React.Fragment>
+      <div className={classes.root}>
+        <Grid container className={classes.container}>
+          <Grid item lg={1} />
+          <Grid item md={12} lg={10} >
+            <InfiniteScroll
+              pageStart={0}
+              loadMore={this.loadMoreItems}
+              hasMore={ pages > page}
+              initialLoad={false}
+            >
+              <ListingItems
+                data={data}
+                loading={loading}
+              />
+            </InfiniteScroll>
+          </Grid>
+        </Grid>
+        <ListingError
+          errors={errors}
+          onRetry={this.retryFetch}
+        />
+      </div>
     );
   }
 }
