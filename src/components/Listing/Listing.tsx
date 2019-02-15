@@ -10,7 +10,7 @@ import InfiniteScroll from "react-infinite-scroller";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { IApplicationState } from "../../store";
-import { fetchStart as fetchStartActionCreator } from "../../store/beer/beerActions";
+import { fetchStart as fetchStartActionCreator } from "../../store/beer/beerActionCreators";
 import { IBeer } from "../../store/beer/beerTypes";
 import { ListingError } from "./ListingError";
 import { StyledListingFooter as ListingFooter } from "./ListingFooter";

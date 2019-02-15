@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { all, call, fork, put, takeLeading } from "redux-saga/effects";
 import { API_ENDPOINT, ITEMS_PER_PAGE } from "../../constants";
-import { fetchError, fetchStart, fetchSuccess } from "./beerActions";
+import { fetchError, fetchStart, fetchSuccess } from "./beerActionCreators";
 import { BeersActionTypes } from "./beerTypes";
 
 function beersGet(action: ReturnType<typeof fetchStart>) {
