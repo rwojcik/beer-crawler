@@ -1,8 +1,9 @@
-import axios, { AxiosRequestConfig } from "axios";
-import { all, call, fork, put, takeLeading } from "redux-saga/effects";
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import { all, call, fork, put, takeLeading, throttle } from "redux-saga/effects";
 import { API_ENDPOINT, ITEMS_PER_PAGE } from "../../constants";
 import { fetchError, fetchStart, fetchSuccess } from "./beerActionCreators";
-import { BeersActionTypes } from "./beerTypes";
+import { FETCH_START } from "./beerActions";
+import { IBeer } from "./beerTypes";
 
 function beersGet(action: ReturnType<typeof fetchStart>) {
   const config: AxiosRequestConfig = {
@@ -18,7 +19,7 @@ function beersGet(action: ReturnType<typeof fetchStart>) {
 
 function* handleFetch(action: ReturnType<typeof fetchStart>) {
   try {
-    const res = yield call(beersGet, action);
+    const res: AxiosResponse<IBeer[]> = yield call(beersGet, action);
     yield put(fetchSuccess(res.data, action.payload.page));
   } catch (err) {
     if (err instanceof Error) {
@@ -30,7 +31,7 @@ function* handleFetch(action: ReturnType<typeof fetchStart>) {
 }
 
 function* watchFetchRequest() {
-  yield takeLeading(BeersActionTypes.FETCH_START, handleFetch);
+  yield throttle(1000, FETCH_START, handleFetch);
 }
 
 export function* beersSaga() {

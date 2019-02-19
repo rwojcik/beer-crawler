@@ -38,11 +38,10 @@ export interface IBeer {
   contributed_by: string;
 }
 
-export enum BeersActionTypes {
-  FETCH_START = "@beers/FETCH_START",
-  FETCH_SUCCESS = "@beers/FETCH_SUCCESS",
-  FETCH_ERROR = "@beers/FETCH_ERROR",
-}
+import { ActionType } from "typesafe-actions";
+import * as beers from "./beerActionCreators";
+
+export type BeersActions = ActionType<typeof beers>;
 
 export interface IBeersState {
   readonly loading: boolean;
