@@ -1,6 +1,6 @@
 import { createStyles, Theme, WithStyles, withStyles } from "@material-ui/core/styles";
 import React from "react";
-import { IValueUnitPair } from "../../store/beer/beerTypes";
+import { ValueUnitPair } from "../../store/beer/beerTypes";
 
 const beerParameterStyles = (theme: Theme) =>
   createStyles({
@@ -9,7 +9,7 @@ const beerParameterStyles = (theme: Theme) =>
     },
   });
 
-type BeerParameterParams = IValueUnitPair & WithStyles<typeof beerParameterStyles> & {
+type BeerParameterParams = ValueUnitPair & WithStyles<typeof beerParameterStyles> & {
   suffix?: string,
 };
 

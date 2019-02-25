@@ -11,7 +11,7 @@ import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import React from "react";
 import Skeleton from "react-loading-skeleton";
 import { API_ENDPOINT } from "../../constants";
-import { IBeer } from "../../store/beer/beerTypes";
+import { Beer } from "../../store/beer/beerTypes";
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -37,7 +37,7 @@ const styles = (theme: Theme) =>
   });
 
 interface IProps {
-  item: IBeer;
+  item: Beer;
 }
 
 type RecommendedProps = IProps &
@@ -46,10 +46,10 @@ type RecommendedProps = IProps &
 // tslint:disable-next-line:interface-over-type-literal
 type RecommendedState = {
   loading: boolean;
-  recommended: IBeer[] | null;
+  recommended: Beer[] | null;
 };
 
-function getRecommended(item: IBeer) {
+function getRecommended(item: Beer) {
   const tolerance = 0.2;
   const config: AxiosRequestConfig = {
     baseURL: API_ENDPOINT,
@@ -77,7 +77,7 @@ export class Recommended extends React.Component<RecommendedProps, RecommendedSt
   public componentDidMount() {
     const { item } = this.props;
     getRecommended(item)
-      .then((res: AxiosResponse<IBeer[]>) => {
+      .then((res: AxiosResponse<Beer[]>) => {
         this.setState({
           loading: false,
           recommended: res.data.filter((resItem) => resItem.id !== item.id),

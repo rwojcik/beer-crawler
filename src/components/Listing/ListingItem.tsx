@@ -12,7 +12,7 @@ import {
 } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import React from "react";
-import { IBeer } from "../../store/beer/beerTypes";
+import { Beer } from "../../store/beer/beerTypes";
 import { StyledDetailDialog as DetailDialog } from "../Detail/DetailDialog";
 
 const styles = (theme: Theme) =>
@@ -34,7 +34,7 @@ const styles = (theme: Theme) =>
   });
 
 interface IProps {
-  item: IBeer;
+  item: Beer;
 }
 
 type ListingItemProps = IProps &

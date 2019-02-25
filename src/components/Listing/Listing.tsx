@@ -11,7 +11,7 @@ import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { IApplicationState } from "../../store";
 import { fetchStart as fetchStartActionCreator } from "../../store/beer/beerActionCreators";
-import { IBeer } from "../../store/beer/beerTypes";
+import { Beer } from "../../store/beer/beerTypes";
 import { ListingError } from "./ListingError";
 import { StyledListingFooter as ListingFooter } from "./ListingFooter";
 import { ListingItems } from "./ListingItems";
@@ -29,7 +29,7 @@ const styles = (theme: Theme) =>
   });
 
 interface IPropsFromState {
-  data?: IBeer[];
+  beers?: Beer[];
   errors: string | undefined;
   loading: boolean;
   page: number;
@@ -63,7 +63,7 @@ export class ListingComponent extends React.Component<ListingContainerProps> {
   }
 
   public render() {
-    const { classes, data, errors, page, pages } = this.props;
+    const { classes, beers, errors, page, pages } = this.props;
 
     return (
       <div className={classes.root}>
@@ -78,7 +78,7 @@ export class ListingComponent extends React.Component<ListingContainerProps> {
             >
               <Grid container spacing={16}>
                 <ListingItems
-                  data={data}
+                  beers={beers}
                 />
                 <ListingProgress
                   loading={pages > page}
@@ -101,15 +101,15 @@ export class ListingComponent extends React.Component<ListingContainerProps> {
 
 const StyledListing = withStyles(styles)(ListingComponent);
 
-const mapStateToProps = ({ beers }: IApplicationState) => ({
-  data: beers.data,
+const mapStateToProps = ({ beers }: IApplicationState): IPropsFromState => ({
+  beers: Object.values(beers.beers),
   errors: beers.errors,
   loading: beers.loading,
   page: beers.page,
   pages: beers.pages,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
+const mapDispatchToProps = (dispatch: Dispatch): IPropsFromDispatch => ({
   fetchStart: (page: number) => dispatch(fetchStartActionCreator(page)),
 });
 

@@ -2,10 +2,10 @@ import { combineReducers } from "redux";
 import { all, fork } from "redux-saga/effects";
 import { beersReducer } from "./beer/beerReducer";
 import { beersSaga } from "./beer/beerSagas";
-import { IBeersState } from "./beer/beerTypes";
+import { BeersState } from "./beer/beerTypes";
 
 export interface IApplicationState {
-  beers: IBeersState;
+  beers: BeersState;
 }
 
 export const rootReducer = combineReducers<IApplicationState>({

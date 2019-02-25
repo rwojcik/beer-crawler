@@ -13,7 +13,7 @@ import {
 import { TransitionProps } from "@material-ui/core/transitions/transition";
 import Typography from "@material-ui/core/Typography";
 import React, { FunctionComponent } from "react";
-import { IBeer } from "../../store/beer/beerTypes";
+import { Beer } from "../../store/beer/beerTypes";
 import { StyledBeerParameter as BeerParameter } from "./BeerParameter";
 import { StyledFoodPairing as FoodPairing } from "./FoodPairing";
 import { StyledRecommended as Recommended } from "./Recommended";
@@ -53,7 +53,7 @@ const styles = (theme: Theme) =>
   });
 
 interface IProps {
-  item: IBeer;
+  item: Beer;
   onClose: () => void;
 }
 

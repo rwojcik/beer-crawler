@@ -1,7 +1,7 @@
 import { createStyles, Theme, withStyles, WithStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import React from "react";
-import { IBeer } from "../../store/beer/beerTypes";
+import { Beer } from "../../store/beer/beerTypes";
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -27,7 +27,7 @@ const styles = (theme: Theme) =>
   });
 
 type FoodPairingProps = WithStyles<typeof styles> & {
-  item: IBeer;
+  item: Beer;
 };
 
 export const FoodPairing: React.FunctionComponent<FoodPairingProps> = ({item, classes}) => {

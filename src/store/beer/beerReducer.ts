@@ -1,17 +1,17 @@
 import { Reducer } from "redux";
 import { ITEMS_PER_PAGE } from "../../constants";
 import { FETCH_ERROR, FETCH_START, FETCH_SUCCESS } from "./beerActions";
-import { BeersActions, IBeersState } from "./beerTypes";
+import { BeerEntities, BeersActions, BeersState } from "./beerTypes";
 
-const initialState: IBeersState = {
-  data: [],
+const initialState: BeersState = {
+  beers: { },
   errors: undefined,
   loading: false,
   page: 0,
   pages: 1,
 };
 
-export const beersReducer: Reducer<IBeersState, BeersActions> = (state = initialState, action: BeersActions) => {
+export const beersReducer: Reducer<BeersState, BeersActions> = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_START: {
       return {
@@ -21,9 +21,14 @@ export const beersReducer: Reducer<IBeersState, BeersActions> = (state = initial
       };
     }
     case FETCH_SUCCESS: {
+      const actionBeers = action.payload.data.reduce<BeerEntities>((acc, val) => {
+        acc[val.id] = val;
+        return acc;
+      }, {});
+      const beers = { ...state.beers, ...actionBeers};
       return {
         ...state,
-        data: [...state.data, ...action.payload.data],
+        beers,
         errors: undefined,
         loading: false,
         page: action.payload.page,
