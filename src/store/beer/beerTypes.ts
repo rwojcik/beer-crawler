@@ -49,6 +49,7 @@ export type BeerEntities = {
 
 export type BeersState = {
   readonly loading: boolean,
+  readonly loadingId: boolean,
   readonly beers: BeerEntities,
   readonly errors?: string,
   readonly page: number,

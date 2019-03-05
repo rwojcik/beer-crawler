@@ -15,7 +15,9 @@ import Typography from "@material-ui/core/Typography";
 import React, { FunctionComponent } from "react";
 import { connect } from "react-redux";
 import { RouteComponentProps, withRouter } from "react-router";
+import { Dispatch } from "redux";
 import { IApplicationState } from "../../store";
+import { fetchIdStart as fetchIdStartActionCreator } from "../../store/beer/beerActionCreators";
 import { Beer } from "../../store/beer/beerTypes";
 import { StyledBeerParameter as BeerParameter } from "./BeerParameter";
 import { StyledFoodPairing as FoodPairing } from "./FoodPairing";
@@ -59,11 +61,17 @@ type OwnProps = RouteComponentProps & {
 };
 
 type Props = Partial<OwnProps> & {
+  itemId?: number;
   item?: Beer;
   onClose: () => void;
 };
 
+type PropsFromDispatch = {
+  fetchIdStart: (id: number) => void;
+};
+
 type DetailDialogProps = Props &
+  PropsFromDispatch &
   WithStyles<typeof styles>;
 
 const Transition: FunctionComponent<TransitionProps> = (props) => (
@@ -71,6 +79,14 @@ const Transition: FunctionComponent<TransitionProps> = (props) => (
 );
 
 export class DetailDialog extends React.Component<DetailDialogProps> {
+  public componentDidMount() {
+    const { item, itemId, fetchIdStart } = this.props;
+
+    if (item == null && itemId) {
+      fetchIdStart(itemId);
+    }
+  }
+
   public render() {
     const { onClose, classes, item } = this.props;
 
@@ -134,14 +150,19 @@ export class DetailDialog extends React.Component<DetailDialogProps> {
 
 const mapStateToProps = ({beers}: IApplicationState, { history }: OwnProps): Props => {
   const searchParams = new URLSearchParams(history.location.search);
-  const itemId = parseInt(searchParams.get("details") || "", 10);
+  const itemId = searchParams.has("details") ? parseInt(searchParams.get("details") || "", 10) : undefined;
   return {
+    itemId,
     item: itemId ? beers.beers[itemId] : undefined,
     onClose: () => history.push({ search: undefined }),
   };
 };
 
-const connected = connect(mapStateToProps)(DetailDialog);
+const mapDispatchToProps = (dispatch: Dispatch): PropsFromDispatch => ({
+  fetchIdStart: (id: number) => dispatch(fetchIdStartActionCreator(id)),
+});
+
+const connected = connect(mapStateToProps, mapDispatchToProps)(DetailDialog);
 
 const routered = withRouter(connected);
 
