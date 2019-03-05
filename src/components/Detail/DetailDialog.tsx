@@ -14,6 +14,7 @@ import { TransitionProps } from "@material-ui/core/transitions/transition";
 import Typography from "@material-ui/core/Typography";
 import React, { FunctionComponent } from "react";
 import { connect } from "react-redux";
+import { RouteComponentProps, withRouter } from "react-router";
 import { IApplicationState } from "../../store";
 import { Beer } from "../../store/beer/beerTypes";
 import { StyledBeerParameter as BeerParameter } from "./BeerParameter";
@@ -54,13 +55,12 @@ const styles = (theme: Theme) =>
     },
   });
 
-type OwnProps = {
-  onClose?: () => void;
-  itemId?: number;
+type OwnProps = RouteComponentProps & {
 };
 
 type Props = Partial<OwnProps> & {
   item?: Beer;
+  onClose: () => void;
 };
 
 type DetailDialogProps = Props &
@@ -132,13 +132,19 @@ export class DetailDialog extends React.Component<DetailDialogProps> {
   }
 }
 
-const mapStateToProps = ({beers}: IApplicationState, { onClose, itemId }: OwnProps): Props => {
+const mapStateToProps = ({beers}: IApplicationState, { history }: OwnProps): Props => {
+  const searchParams = new URLSearchParams(history.location.search);
+  const itemId = parseInt(searchParams.get("details") || "", 10);
   return {
     item: itemId ? beers.beers[itemId] : undefined,
-    onClose,
+    onClose: () => history.push({ search: undefined }),
   };
 };
 
 const connected = connect(mapStateToProps)(DetailDialog);
 
-export const StyledDetailDialog = withStyles(styles)(connected);
+const routered = withRouter(connected);
+
+const styled = withStyles(styles)(routered);
+
+export const StyledDetailDialog = withStyles(styles)(styled);

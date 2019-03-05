@@ -14,7 +14,6 @@ import Typography from "@material-ui/core/Typography";
 import React from "react";
 import { RouteComponentProps, withRouter } from "react-router";
 import { Beer } from "../../store/beer/beerTypes";
-import { StyledDetailDialog as DetailDialog } from "../Detail/DetailDialog";
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -55,24 +54,7 @@ export class ListingItem extends React.Component<ListingItemProps, ListingItemSt
 
   private openDetail = () => {
     const { history, item } = this.props;
-    history.push({  search: `?details=${item.id}` });
-  }
-
-  private closeDetail = () => {
-    const { history } = this.props;
-    history.push({ search: undefined });
-  }
-
-  private renderDetail = () => {
-    if (this.state.showDetail) {
-      return(
-        <DetailDialog
-          itemId={this.props.item.id}
-          onClose={this.closeDetail}
-        />
-      );
-    }
-    return null;
+    history.push({  search: `details=${item.id}` });
   }
 
   public render() {
@@ -102,7 +84,6 @@ export class ListingItem extends React.Component<ListingItemProps, ListingItemSt
             </Button>
           </CardActions>
         </Card>
-        {this.renderDetail()}
       </React.Fragment>
     );
   }
