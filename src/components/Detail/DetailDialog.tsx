@@ -13,6 +13,8 @@ import {
 import { TransitionProps } from "@material-ui/core/transitions/transition";
 import Typography from "@material-ui/core/Typography";
 import React, { FunctionComponent } from "react";
+import { connect } from "react-redux";
+import { IApplicationState } from "../../store";
 import { Beer } from "../../store/beer/beerTypes";
 import { StyledBeerParameter as BeerParameter } from "./BeerParameter";
 import { StyledFoodPairing as FoodPairing } from "./FoodPairing";
@@ -52,12 +54,16 @@ const styles = (theme: Theme) =>
     },
   });
 
-interface IProps {
-  item: Beer;
-  onClose: () => void;
-}
+type OwnProps = {
+  onClose?: () => void;
+  itemId?: number;
+};
 
-type DetailDialogProps = IProps &
+type Props = Partial<OwnProps> & {
+  item?: Beer;
+};
+
+type DetailDialogProps = Props &
   WithStyles<typeof styles>;
 
 const Transition: FunctionComponent<TransitionProps> = (props) => (
@@ -67,6 +73,10 @@ const Transition: FunctionComponent<TransitionProps> = (props) => (
 export class DetailDialog extends React.Component<DetailDialogProps> {
   public render() {
     const { onClose, classes, item } = this.props;
+
+    if (item == null || onClose == null) {
+      return null;
+    }
 
     return (
       <Dialog
@@ -122,4 +132,13 @@ export class DetailDialog extends React.Component<DetailDialogProps> {
   }
 }
 
-export const StyledDetailDialog = withStyles(styles)(DetailDialog);
+const mapStateToProps = ({beers}: IApplicationState, { onClose, itemId }: OwnProps): Props => {
+  return {
+    item: itemId ? beers.beers[itemId] : undefined,
+    onClose,
+  };
+};
+
+const connected = connect(mapStateToProps)(DetailDialog);
+
+export const StyledDetailDialog = withStyles(styles)(connected);

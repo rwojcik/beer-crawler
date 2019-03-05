@@ -12,6 +12,7 @@ import {
 } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import React from "react";
+import { RouteComponentProps, withRouter } from "react-router";
 import { Beer } from "../../store/beer/beerTypes";
 import { StyledDetailDialog as DetailDialog } from "../Detail/DetailDialog";
 
@@ -38,7 +39,8 @@ interface IProps {
 }
 
 type ListingItemProps = IProps &
-  WithStyles<typeof styles>;
+  WithStyles<typeof styles> &
+  RouteComponentProps;
 
 interface IState {
   showDetail: boolean;
@@ -51,18 +53,22 @@ export class ListingItem extends React.Component<ListingItemProps, ListingItemSt
     showDetail: false,
   };
 
-  private toggleDetail = () => {
-    this.setState({
-      showDetail: !this.state.showDetail,
-    });
+  private openDetail = () => {
+    const { history, item } = this.props;
+    history.push({  search: `?details=${item.id}` });
+  }
+
+  private closeDetail = () => {
+    const { history } = this.props;
+    history.push({ search: undefined });
   }
 
   private renderDetail = () => {
     if (this.state.showDetail) {
       return(
         <DetailDialog
-          item={this.props.item}
-          onClose={this.toggleDetail}
+          itemId={this.props.item.id}
+          onClose={this.closeDetail}
         />
       );
     }
@@ -74,7 +80,7 @@ export class ListingItem extends React.Component<ListingItemProps, ListingItemSt
     return (
       <React.Fragment>
         <Card className={classes.card}>
-          <CardActionArea className={classes.cardArea} onClick={this.toggleDetail}>
+          <CardActionArea className={classes.cardArea} onClick={this.openDetail}>
             <CardMedia
               component="img"
               className={classes.media}
@@ -91,7 +97,7 @@ export class ListingItem extends React.Component<ListingItemProps, ListingItemSt
             </CardContent>
           </CardActionArea>
           <CardActions>
-            <Button size="small" color="primary" onClick={this.toggleDetail}>
+            <Button size="small" color="primary" onClick={this.openDetail}>
               Details
             </Button>
           </CardActions>
@@ -102,4 +108,4 @@ export class ListingItem extends React.Component<ListingItemProps, ListingItemSt
   }
 }
 
-export const StyledListingItem = withStyles(styles)(ListingItem);
+export const StyledListingItem = withStyles(styles)(withRouter(ListingItem));
