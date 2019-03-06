@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Link, Route } from "react-router-dom";
 import "typeface-roboto";
-import { StyledDetailDialog as DetailDialog } from "./components/Detail/DetailDialog";
+import { DetailDialogContainer as DetailDialog } from "./components/Detail/DetailDialog/DetailDialogContainer";
 import { ListingContainer as Listing } from "./components/Listing/Listing";
 import { NavBar } from "./components/NavBar";
 
