@@ -7,7 +7,7 @@ import { Dispatch } from "redux";
 import { IApplicationState } from "../../../store";
 import { fetchIdStart as fetchIdStartActionCreator } from "../../../store/beer/beerActionCreators";
 import { DetailDialogComponent } from "./DetailDialogComponent";
-import { styles } from "./DetailDialogStyles";
+import { DetailDialogStyles } from "./DetailDialogStyles";
 import {
   DetailDialogProps,
   OwnProps,
@@ -30,7 +30,7 @@ const mapDispatchToProps = (dispatch: Dispatch): PropsFromDispatch => ({
 });
 
 export const DetailDialogContainer = compose<DetailDialogProps, {}>(
-  withStyles(styles),
+  withStyles(DetailDialogStyles),
   withRouter,
   connect(mapStateToProps, mapDispatchToProps),
 )(DetailDialogComponent);

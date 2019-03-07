@@ -1,7 +1,7 @@
 import Grid from "@material-ui/core/Grid";
 import React from "react";
 import { Beer } from "../../store/beer/beerTypes";
-import { StyledListingItem as ListingItem } from "./ListingItem";
+import { ListingItem } from "./ListingItem";
 
 type ListingItemsProps = {
   beers?: Beer[];

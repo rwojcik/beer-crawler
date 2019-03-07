@@ -13,10 +13,12 @@ type BeerParameterParams = ValueUnitPair & WithStyles<typeof beerParameterStyles
   suffix?: string,
 };
 
-export const BeerParameter: React.FunctionComponent<BeerParameterParams> = ({unit, value, suffix, classes}) => (
+export const BeerParameterComponent: React.FunctionComponent<BeerParameterParams> = (
+  {unit, value, suffix, classes},
+  ) => (
   <span className={classes.root}>
     <b>{unit}:</b> {value}{suffix}
   </span>
 );
 
-export const StyledBeerParameter = withStyles(beerParameterStyles)(BeerParameter);
+export const BeerParameter = withStyles(beerParameterStyles)(BeerParameterComponent);

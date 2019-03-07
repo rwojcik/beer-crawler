@@ -1,6 +1,6 @@
 import { createStyles, Theme } from "@material-ui/core/styles";
 
-export const styles = (theme: Theme) => createStyles({
+export const DetailDialogStyles = (theme: Theme) => createStyles({
   preview: {
     width: "100%",
     maxWidth: 180,

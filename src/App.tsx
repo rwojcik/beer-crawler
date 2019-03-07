@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Link, Route } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import "typeface-roboto";
-import { DetailDialogContainer as DetailDialog } from "./components/Detail/DetailDialog/DetailDialogContainer";
-import { ListingContainer as Listing } from "./components/Listing/Listing";
+import { DetailDialog } from "./components/Detail/DetailDialog";
+import { ListingView } from "./components/Listing/ListingView";
 import { NavBar } from "./components/NavBar";
 
 export class App extends Component {
@@ -11,7 +11,7 @@ export class App extends Component {
       <Router>
         <React.Fragment>
           <NavBar/>
-          <Listing/>
+          <ListingView/>
           <DetailDialog />
         </React.Fragment>
       </Router>

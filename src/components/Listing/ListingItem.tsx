@@ -13,6 +13,7 @@ import {
 import Typography from "@material-ui/core/Typography";
 import React from "react";
 import { RouteComponentProps, withRouter } from "react-router";
+import compose from "recompose/compose";
 import { Beer } from "../../store/beer/beerTypes";
 
 const styles = (theme: Theme) =>
@@ -33,21 +34,19 @@ const styles = (theme: Theme) =>
     },
   });
 
-interface IProps {
+type Props = {
   item: Beer;
-}
+};
 
-type ListingItemProps = IProps &
+type ListingItemProps = Props &
   WithStyles<typeof styles> &
   RouteComponentProps;
 
-interface IState {
+type ListingItemState = {
   showDetail: boolean;
-}
+};
 
-type ListingItemState = IState;
-
-export class ListingItem extends React.Component<ListingItemProps, ListingItemState> {
+export class ListingItemComponent extends React.Component<ListingItemProps, ListingItemState> {
   public readonly state: ListingItemState = {
     showDetail: false,
   };
@@ -89,4 +88,7 @@ export class ListingItem extends React.Component<ListingItemProps, ListingItemSt
   }
 }
 
-export const StyledListingItem = withStyles(styles)(withRouter(ListingItem));
+export const ListingItem = compose<ListingItemProps, Props>(
+  withRouter,
+  withStyles(styles),
+)(ListingItemComponent);

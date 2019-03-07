@@ -16,7 +16,7 @@ type ListingFooterProps = WithStyles<typeof styles> & {
   lastPage: boolean;
 };
 
-export const ListingFooter: React.FunctionComponent<ListingFooterProps> = ({lastPage, classes}) => {
+export const ListingFooterComponent: React.FunctionComponent<ListingFooterProps> = ({lastPage, classes}) => {
   if (lastPage) {
     return (
       <Grid item xs={12} >
@@ -30,4 +30,4 @@ export const ListingFooter: React.FunctionComponent<ListingFooterProps> = ({last
   return null;
 };
 
-export const StyledListingFooter = withStyles(styles)(ListingFooter);
+export const ListingFooter = withStyles(styles)(ListingFooterComponent);

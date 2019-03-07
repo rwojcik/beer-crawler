@@ -30,7 +30,7 @@ type FoodPairingProps = WithStyles<typeof styles> & {
   item: Beer;
 };
 
-export const FoodPairing: React.FunctionComponent<FoodPairingProps> = ({item, classes}) => {
+export const FoodPairingComponent: React.FunctionComponent<FoodPairingProps> = ({item, classes}) => {
   if (item.food_pairing && item.food_pairing.length) {
     return (
       <React.Fragment>
@@ -52,4 +52,4 @@ export const FoodPairing: React.FunctionComponent<FoodPairingProps> = ({item, cl
   return null;
 };
 
-export const StyledFoodPairing = withStyles(styles)(FoodPairing);
+export const FoodPairing = withStyles(styles)(FoodPairingComponent);

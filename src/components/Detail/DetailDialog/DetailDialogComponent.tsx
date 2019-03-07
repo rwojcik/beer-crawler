@@ -7,9 +7,9 @@ import Slide from "@material-ui/core/Slide";
 import { TransitionProps } from "@material-ui/core/transitions/transition";
 import Typography from "@material-ui/core/Typography";
 import React, { FunctionComponent } from "react";
-import { StyledBeerParameter as BeerParameter } from "../BeerParameter";
-import { StyledFoodPairing as FoodPairing } from "../FoodPairing";
-import { StyledRecommended as Recommended } from "../Recommended";
+import { BeerParameter as BeerParameter } from "../BeerParameter";
+import { FoodPairing } from "../FoodPairing";
+import { Recommended } from "../Recommended";
 import { DetailDialogProps } from "./DetailDialogTypes";
 
 const Transition: FunctionComponent<TransitionProps> = (props) => (

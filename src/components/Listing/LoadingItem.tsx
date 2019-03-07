@@ -17,7 +17,7 @@ const styles = () =>
     },
   });
 
-export class LoadingItem extends React.Component<WithStyles<typeof styles>> {
+export class LoadingItemComponent extends React.Component<WithStyles<typeof styles>> {
   public render() {
     const { classes } = this.props;
     return (
@@ -43,4 +43,4 @@ export class LoadingItem extends React.Component<WithStyles<typeof styles>> {
   }
 }
 
-export const StyledLoadingItem = withStyles(styles)(LoadingItem);
+export const LoadingItem = withStyles(styles)(LoadingItemComponent);

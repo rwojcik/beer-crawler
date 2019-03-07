@@ -68,7 +68,7 @@ function getRecommended(item: Beer) {
   return axios.get("/beers", config );
 }
 
-export class Recommended extends React.Component<RecommendedProps, RecommendedState> {
+export class RecommendedComponent extends React.Component<RecommendedProps, RecommendedState> {
   public readonly state: RecommendedState = {
     loading: true,
     recommended: null,
@@ -141,4 +141,4 @@ export class Recommended extends React.Component<RecommendedProps, RecommendedSt
   }
 }
 
-export const StyledRecommended = withStyles(styles)(Recommended);
+export const Recommended = withStyles(styles)(RecommendedComponent);

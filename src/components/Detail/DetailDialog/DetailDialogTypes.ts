@@ -1,7 +1,7 @@
 import { WithStyles } from "@material-ui/core/styles";
 import { RouteComponentProps } from "react-router";
 import { Beer } from "../../../store/beer/beerTypes";
-import { styles } from "./DetailDialogStyles";
+import { DetailDialogStyles } from "./DetailDialogStyles";
 
 export type OwnProps = RouteComponentProps & {
 };
@@ -18,4 +18,4 @@ export type PropsFromDispatch = {
 
 export type DetailDialogProps = Props &
   PropsFromDispatch &
-  WithStyles<typeof styles>;
+  WithStyles<typeof DetailDialogStyles>;

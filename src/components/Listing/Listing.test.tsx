@@ -3,7 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { render } from "react-testing-library";
 import "react-testing-library/cleanup-after-each";
-import { ListingComponent } from "./Listing";
+import { ListingViewComponent } from "./ListingView/ListingViewComponent";
 
 // configure({ adapter: new Adapter() });
 
@@ -20,7 +20,7 @@ it("renders without crashing", () => {
     container: "container",
   };
 
-  ReactDOM.render(<ListingComponent
+  ReactDOM.render(<ListingViewComponent
     errors = {errors}
     data = {data}
     loading = {loading}
@@ -44,7 +44,7 @@ it("calls loading when should", () => {
     container: "container",
   };
 
-  ReactDOM.render(<ListingComponent
+  ReactDOM.render(<ListingViewComponent
     errors = {errors}
     data = {data}
     loading = {loading}
@@ -69,7 +69,7 @@ it("calls loading when shouldn't", () => {
     container: "container",
   };
 
-  ReactDOM.render(<ListingComponent
+  ReactDOM.render(<ListingViewComponent
     errors = {errors}
     data = {data}
     loading = {loading}
