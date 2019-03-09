@@ -77,7 +77,7 @@ export class DetailDialogComponent extends React.Component<DetailDialogProps> {
               </DialogContentText>
             </Grid>
             <Grid item xs={12}>
-              <Recommended item={item}/>
+              <Recommended itemId={item.id}/>
             </Grid>
           </Grid>
         </DialogContent>

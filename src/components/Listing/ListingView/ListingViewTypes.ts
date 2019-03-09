@@ -1,5 +1,5 @@
 import { WithStyles } from "@material-ui/core/styles";
-import { fetchStart as fetchStartActionCreator } from "../../../store/beer/beerActionCreators";
+import { fetchStart } from "../../../store/beer/beerActionCreators";
 import { Beer } from "../../../store/beer/beerTypes";
 import { ListingViewStyles } from "./ListingViewStyles";
 
@@ -12,7 +12,7 @@ export type PropsFromState = {
 };
 
 export type PropsFromDispatch = {
-  fetchStart: typeof fetchStartActionCreator;
+  fetchStart: typeof fetchStart;
 };
 
 export type ListingViewProps = PropsFromState & PropsFromDispatch & WithStyles<typeof ListingViewStyles>;

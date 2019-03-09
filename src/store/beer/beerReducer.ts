@@ -5,16 +5,24 @@ import {
   FETCH_ID_ERROR,
   FETCH_ID_START,
   FETCH_ID_SUCCESS,
+  FETCH_RECOMMENDED_ERROR,
+  FETCH_RECOMMENDED_START,
+  FETCH_RECOMMENDED_SUCCESS,
   FETCH_START,
   FETCH_SUCCESS,
 } from "./beerActionTypes";
-import { BeerEntities, BeersActions, BeersState } from "./beerTypes";
+import { Beer, BeerEntities, BeersActions, BeersState } from "./beerTypes";
 
 const initialState: BeersState = {
   beers: { },
   errors: undefined,
+  errorsId: undefined,
+  errorsRecommended: undefined,
   loading: false,
   loadingId: false,
+  loadingRecommended: false,
+  recommendedIds: [],
+  recommenderId: -1,
   page: 0,
   pages: 1,
 };
@@ -29,11 +37,7 @@ export const beersReducer: Reducer<BeersState, BeersActions> = (state = initialS
       };
     }
     case FETCH_SUCCESS: {
-      const actionBeers = action.payload.data.reduce<BeerEntities>((acc, val) => {
-        acc[val.id] = val;
-        return acc;
-      }, {});
-      const beers = { ...state.beers, ...actionBeers};
+      const beers = normalizeAndMerge(action.payload.data, state.beers);
       return {
         ...state,
         beers,
@@ -53,7 +57,7 @@ export const beersReducer: Reducer<BeersState, BeersActions> = (state = initialS
     case FETCH_ID_START: {
       return {
         ...state,
-        errors: undefined,
+        errorsId: undefined,
         loadingId: true,
       };
     }
@@ -63,15 +67,44 @@ export const beersReducer: Reducer<BeersState, BeersActions> = (state = initialS
       return {
         ...state,
         beers,
-        errors: undefined,
+        errorsId: undefined,
         loadingId: false,
       };
     }
     case FETCH_ID_ERROR: {
       return {
         ...state,
-        errors: action.payload.message,
+        errorsId: action.payload.message,
         loadingId: false,
+      };
+    }
+    case FETCH_RECOMMENDED_START: {
+      return {
+        ...state,
+        errorsRecommended: undefined,
+        loadingRecommended: true,
+        recommendedIds: [],
+        recommenderId: action.payload.id,
+      };
+    }
+    case FETCH_RECOMMENDED_SUCCESS: {
+      const {data, id} = action.payload;
+      const beers = normalizeAndMerge(data, state.beers);
+      return {
+        ...state,
+        beers,
+        recommendedIds: data.map((beer) => beer.id),
+        errorsRecommended: undefined,
+        loadingRecommended: false,
+        recommenderId: id,
+      };
+    }
+    case FETCH_RECOMMENDED_ERROR: {
+      return {
+        ...state,
+        errorsRecommended: action.payload.message,
+        loadingRecommended: false,
+        recommenderId: action.payload.id,
       };
     }
     default: {
@@ -79,3 +112,13 @@ export const beersReducer: Reducer<BeersState, BeersActions> = (state = initialS
     }
   }
 };
+
+function normalizeAndMerge(actionBeers: Beer[], stateBeers: BeerEntities) {
+  const normalizedBeers = actionBeers.reduce<BeerEntities>((acc, val) => {
+    acc[val.id] = val;
+    return acc;
+  }, {});
+
+  const beers = { ...stateBeers, ...normalizedBeers };
+  return beers;
+}

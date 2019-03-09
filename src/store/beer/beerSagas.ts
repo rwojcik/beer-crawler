@@ -6,10 +6,13 @@ import {
   fetchIdError,
   fetchIdStart,
   fetchIdSuccess,
+  fetchRecommendedError,
+  fetchRecommendedStart,
+  fetchRecommendedSuccess,
   fetchStart,
   fetchSuccess,
 } from "./beerActionCreators";
-import { FETCH_ID_START, FETCH_START } from "./beerActionTypes";
+import { FETCH_ID_START, FETCH_RECOMMENDED_START, FETCH_START } from "./beerActionTypes";
 import { Beer } from "./beerTypes";
 
 function beersGet(action: ReturnType<typeof fetchStart>) {
@@ -21,7 +24,7 @@ function beersGet(action: ReturnType<typeof fetchStart>) {
     },
   };
 
-  return axios.get("/beers", config );
+  return axios.get<Beer[]>("/beers", config );
 }
 
 function* handleBeersFetch(action: ReturnType<typeof fetchStart>) {
@@ -45,7 +48,7 @@ function beerIdGet(action: ReturnType<typeof fetchIdStart>) {
     },
   };
 
-  return axios.get("/beers", config );
+  return axios.get<Beer[]>("/beers", config );
 }
 
 function* handleBeerIdFetch(action: ReturnType<typeof fetchIdStart>) {
@@ -61,9 +64,48 @@ function* handleBeerIdFetch(action: ReturnType<typeof fetchIdStart>) {
   }
 }
 
+function requestBeerRecommended(abv: number, ibu: number, ebc: number, tolerance: number) {
+  const config: AxiosRequestConfig = {
+    baseURL: API_ENDPOINT,
+    params: {
+      page: 1,
+      per_page: 4,
+      abv_gt: Math.floor((1 - tolerance) * abv),
+      abv_lt: Math.ceil((1 + tolerance) * abv),
+      ibu_gt: Math.floor((1 - tolerance) * ibu),
+      ibu_lt: Math.ceil((1 + tolerance) * ibu),
+      ebc_gt: Math.floor((1 - tolerance) * ebc),
+      ebc_lt: Math.ceil((1 + tolerance) * ebc),
+    },
+  };
+
+  return axios.get<Beer[]>("/beers", config );
+}
+
+function* handleBeerRecommendedFetch(action: ReturnType<typeof fetchRecommendedStart>) {
+  const { id, abv, ibu, ebc } = action.payload;
+  let data: Beer[] = [];
+  let tolerance = 0.2;
+  try {
+    while (tolerance < 1 && data.length < 4) {
+      const res = yield call(requestBeerRecommended, abv, ibu, ebc, tolerance);
+      data = res.data;
+      tolerance += 0.1;
+    }
+    yield put(fetchRecommendedSuccess(id, data));
+  } catch (err) {
+    if (err instanceof Error) {
+      yield put(fetchRecommendedError(id, err.message!));
+    } else {
+      yield put(fetchRecommendedError(id, "An unknown error occurred."));
+    }
+  }
+}
+
 function* watchFetchRequest() {
   yield throttle(1000, FETCH_START, handleBeersFetch);
   yield throttle(1000, FETCH_ID_START, handleBeerIdFetch);
+  yield throttle(1000, FETCH_RECOMMENDED_START, handleBeerRecommendedFetch);
 }
 
 export function* beersSaga() {
