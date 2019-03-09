@@ -92,7 +92,7 @@ function* handleBeerRecommendedFetch(action: ReturnType<typeof fetchRecommendedS
       data = res.data;
       tolerance += 0.1;
     }
-    yield put(fetchRecommendedSuccess(id, data));
+    yield put(fetchRecommendedSuccess(id, data.filter((beer) => beer.id !== id)));
   } catch (err) {
     if (err instanceof Error) {
       yield put(fetchRecommendedError(id, err.message!));
