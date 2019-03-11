@@ -1,6 +1,9 @@
 import { createStyles, Theme } from "@material-ui/core/styles";
 
 export const RecommendedStyles = (theme: Theme) => createStyles({
+  wrapper: {
+    minHeight: 300,
+  },
   preview: {
     width: "100%",
     maxWidth: 100,
