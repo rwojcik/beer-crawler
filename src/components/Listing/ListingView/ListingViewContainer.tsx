@@ -11,7 +11,7 @@ import { ListingViewStyles } from "./ListingViewStyles";
 import { ListingViewProps, PropsFromDispatch, PropsFromState } from "./ListingViewTypes";
 
 const mapStateToProps = ({ beers }: IApplicationState): PropsFromState => ({
-  beers: Object.values(beers.beers),
+  beers: beers.listedBeerIds.map((b) => beers.beers[b]),
   errors: beers.errors,
   loading: beers.loading,
   page: beers.page,

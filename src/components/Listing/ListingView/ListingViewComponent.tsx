@@ -29,20 +29,22 @@ export class ListingViewComponent extends React.Component<ListingViewProps> {
 
   public render() {
     const { classes, beers, errors, page, pages } = this.props;
-    return (<div className={classes.root}>
-      <Grid container className={classes.container}>
-        <Grid item lg={1} />
-        <Grid item md={12} lg={10}>
-          <InfiniteScroll pageStart={0} loadMore={this.loadMoreItems} hasMore={pages > page} initialLoad={false}>
-            <Grid container spacing={16}>
-              <ListingItems beers={beers} />
-              <ListingProgress loading={pages > page} />
-              <ListingFooter lastPage={pages === page} />
-            </Grid>
-          </InfiniteScroll>
+    return (
+      <div className={classes.root}>
+        <Grid container className={classes.container}>
+          <Grid item lg={1} />
+          <Grid item md={12} lg={10}>
+            <InfiniteScroll pageStart={0} loadMore={this.loadMoreItems} hasMore={pages > page} initialLoad={false}>
+              <Grid container spacing={16}>
+                <ListingItems beers={beers} />
+                <ListingProgress loading={pages > page} />
+                <ListingFooter lastPage={pages === page} />
+              </Grid>
+            </InfiniteScroll>
+          </Grid>
         </Grid>
-      </Grid>
-      <ListingError errors={errors} onRetry={this.retryFetch} />
-    </div>);
+        <ListingError errors={errors} onRetry={this.retryFetch} />
+      </div>
+    );
   }
 }

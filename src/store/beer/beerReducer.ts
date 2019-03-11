@@ -15,6 +15,7 @@ import { Beer, BeerEntities, BeersActions, BeersState } from "./beerTypes";
 
 const initialState: BeersState = {
   beers: { },
+  listedBeerIds: [],
   errors: undefined,
   errorsId: undefined,
   errorsRecommended: undefined,
@@ -45,6 +46,7 @@ export const beersReducer: Reducer<BeersState, BeersActions> = (state = initialS
         loading: false,
         page: action.payload.page,
         pages: action.payload.data.length === ITEMS_PER_PAGE ? action.payload.page + 1 : action.payload.page,
+        listedBeerIds: [ ...state.listedBeerIds, ...action.payload.data.map((b) => b.id) ],
       };
     }
     case FETCH_ERROR: {
