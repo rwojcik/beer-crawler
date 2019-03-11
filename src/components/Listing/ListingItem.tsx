@@ -42,14 +42,10 @@ type ListingItemProps = Props &
   WithStyles<typeof styles> &
   RouteComponentProps;
 
-type ListingItemState = {
-  showDetail: boolean;
-};
-
-export class ListingItemComponent extends React.Component<ListingItemProps, ListingItemState> {
-  public readonly state: ListingItemState = {
-    showDetail: false,
-  };
+export class ListingItemComponent extends React.Component<ListingItemProps> {
+  public shouldComponentUpdate(nextProps: ListingItemProps) {
+    return nextProps.item.id !== this.props.item.id;
+  }
 
   private openDetail = () => {
     const { history, item } = this.props;
