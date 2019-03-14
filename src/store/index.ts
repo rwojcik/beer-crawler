@@ -4,12 +4,18 @@ import { beersReducer } from "./beer/beerReducer";
 import { beersSaga } from "./beer/beerSagas";
 import { BeersState } from "./beer/beerTypes";
 
-export interface IApplicationState {
-  beers: BeersState;
-}
+export type ApplicationState = {
+  beerEntities: BeersState;
+  beerListing: BeersState;
+  beerRecommended: BeersState;
+  beerDetail: BeersState;
+};
 
-export const rootReducer = combineReducers<IApplicationState>({
-  beers: beersReducer,
+export const rootReducer = combineReducers<ApplicationState>({
+  beerEntities: beersReducer,
+  beerListing: beersReducer,
+  beerRecommended: beersReducer,
+  beerDetail: beersReducer,
 });
 
 export function* rootSaga() {

@@ -10,10 +10,10 @@ import {
   FETCH_RECOMMENDED_SUCCESS,
   FETCH_START,
   FETCH_SUCCESS,
-} from "./beerActionTypes";
-import { Beer, BeerEntities, BeersActions, BeersState } from "./beerTypes";
+} from "./beerEntitiesActionTypes";
+import { Beer, BeerEntities, BeersActions, BeerEntitiesState } from "./beerEntitiesTypes";
 
-const initialState: BeersState = {
+const initialState: BeerEntitiesState = {
   beers: { },
   listedBeerIds: [],
   errors: undefined,
@@ -28,7 +28,7 @@ const initialState: BeersState = {
   pages: 1,
 };
 
-export const beersReducer: Reducer<BeersState, BeersActions> = (state = initialState, action) => {
+export const beersReducer: Reducer<BeerEntitiesState, BeersActions> = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_START: {
       return {

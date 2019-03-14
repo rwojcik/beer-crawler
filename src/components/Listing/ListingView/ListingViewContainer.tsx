@@ -4,13 +4,13 @@ import {
 import { connect } from "react-redux";
 import { compose } from "recompose";
 import { Dispatch } from "redux";
-import { IApplicationState } from "../../../store";
+import { ApplicationState } from "../../../store";
 import { fetchStart as fetchStartActionCreator } from "../../../store/beer/beerActionCreators";
 import { ListingViewComponent } from "./ListingViewComponent";
 import { ListingViewStyles } from "./ListingViewStyles";
 import { ListingViewProps, PropsFromDispatch, PropsFromState } from "./ListingViewTypes";
 
-const mapStateToProps = ({ beers }: IApplicationState): PropsFromState => ({
+const mapStateToProps = ({ beers }: ApplicationState): PropsFromState => ({
   beers: beers.listedBeerIds.map((b) => beers.beers[b]),
   errors: beers.errors,
   loading: beers.loading,

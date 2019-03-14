@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import { compose } from "recompose";
 import { Dispatch } from "redux";
-import { IApplicationState } from "../../../store";
+import { ApplicationState } from "../../../store";
 import { fetchRecommendedStart } from "../../../store/beer/beerActionCreators";
 import { RecommendedComponent } from "./RecommendedComponent";
 import { RecommendedStyles } from "./RecommendedStyles";
@@ -16,7 +16,7 @@ import {
   RecommendedStateProps,
 } from "./RecommendedTypes";
 
-const mapStateToProps = ({beers}: IApplicationState, { itemId }: RecommendedChildrenProps): RecommendedStateProps => {
+const mapStateToProps = ({beers}: ApplicationState, { itemId }: RecommendedChildrenProps): RecommendedStateProps => {
   return {
     loading: beers.loadingRecommended,
     errors: beers.errorsRecommended,

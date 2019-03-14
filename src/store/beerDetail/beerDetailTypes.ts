@@ -48,16 +48,16 @@ export type BeerEntities = {
 };
 
 export type BeersState = {
-  readonly loading: boolean,
-  readonly listedBeerIds: number[],
-  readonly loadingId: boolean,
-  readonly loadingRecommended: boolean,
+  // readonly loading: boolean,
+  // readonly listedBeerIds: number[],
+  // readonly loadingId: boolean,
+  // readonly loadingRecommended: boolean,
   readonly beers: BeerEntities,
-  readonly recommendedIds: number[],
-  readonly recommenderId: number,
-  readonly errors?: string,
-  readonly errorsId?: string,
-  readonly errorsRecommended?: string,
+  // readonly recommendedIds: number[],
+  // readonly recommenderId: number,
+  // readonly errors?: string,
+  // readonly errorsId?: string,
+  // readonly errorsRecommended?: string,
   readonly page: number,
   readonly pages: number,
 };

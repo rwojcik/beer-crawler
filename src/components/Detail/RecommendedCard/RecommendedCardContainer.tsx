@@ -2,7 +2,7 @@ import { withStyles } from "@material-ui/core";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import { compose } from "recompose";
-import { IApplicationState } from "../../../store";
+import { ApplicationState } from "../../../store";
 import {
   RecommendedCardChildrenProps,
   RecommendedCardProps,
@@ -12,7 +12,7 @@ import { RecommendedCardComponent } from "./RecommendedCardComponent";
 import { RecommendedCardStyles } from "./RecommendedCardStyles";
 
 const mapStateToProps = (
-  { beers }: IApplicationState,
+  { beers }: ApplicationState,
   { itemId }: RecommendedCardChildrenProps,
 ): RecommendedCardStateProps => {
   return {

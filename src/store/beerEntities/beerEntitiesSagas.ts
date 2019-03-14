@@ -12,8 +12,8 @@ import {
   fetchStart,
   fetchSuccess,
 } from "./beerActionCreators";
-import { FETCH_ID_START, FETCH_RECOMMENDED_START, FETCH_START } from "./beerActionTypes";
-import { Beer } from "./beerTypes";
+import { FETCH_ID_START, FETCH_RECOMMENDED_START, FETCH_START } from "./beerEntitiesActionTypes";
+import { Beer } from "./beerEntitiesTypes";
 
 function beersGet(action: ReturnType<typeof fetchStart>) {
   const config: AxiosRequestConfig = {

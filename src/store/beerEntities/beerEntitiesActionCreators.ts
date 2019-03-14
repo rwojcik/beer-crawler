@@ -9,8 +9,8 @@ import {
   FETCH_RECOMMENDED_SUCCESS,
   FETCH_START,
   FETCH_SUCCESS,
-} from "./beerActionTypes";
-import { Beer } from "./beerTypes";
+} from "./beerEntitiesActionTypes";
+import { Beer } from "./beerEntitiesTypes";
 
 export const fetchStart = createAction(FETCH_START, (resolve) => {
   return (page: number) => resolve({page});

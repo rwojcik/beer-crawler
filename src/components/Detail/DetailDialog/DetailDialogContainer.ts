@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import compose from "recompose/compose";
 import { Dispatch } from "redux";
-import { IApplicationState } from "../../../store";
+import { ApplicationState } from "../../../store";
 import { fetchIdStart as fetchIdStartActionCreator } from "../../../store/beer/beerActionCreators";
 import { DetailDialogComponent } from "./DetailDialogComponent";
 import { DetailDialogStyles } from "./DetailDialogStyles";
@@ -15,7 +15,7 @@ import {
   PropsFromDispatch,
 } from "./DetailDialogTypes";
 
-const mapStateToProps = ({beers}: IApplicationState, { history }: OwnProps): Props => {
+const mapStateToProps = ({beers}: ApplicationState, { history }: OwnProps): Props => {
   const searchParams = new URLSearchParams(history.location.search);
   const itemId = searchParams.has("details") ? parseInt(searchParams.get("details") || "", 10) : undefined;
   return {
